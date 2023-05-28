@@ -43,14 +43,15 @@ class Bird(Animal):
         return self.__feather
 
 
-class Fabrika(Bird):
-    def __init__(self, name, age, feather, type):
-        super().__init__(name, age, feather)
-        self.__type = type
-
-    def get_type(self):
-        return self.__type
-
-
-fabr = Fabrika("Dyatel", 2, "Black", "Bird")
-print(fabr.get_specific(), fabr.get_type())
+class Fabrika:
+     def __new__(cls, animal_type, *args, **kwargs):
+         try:
+             tmp = super().__new__(animal_type)
+             tmp.__init__(*args,**kwargs)
+             return tmp
+         except:
+             print('Error!')
+             
+dog = Fabrika(Mammal, name = 'Sharik', age = 3, wool = 'dirty')
+print(dog.get_name())
+print(dog.get_age())
